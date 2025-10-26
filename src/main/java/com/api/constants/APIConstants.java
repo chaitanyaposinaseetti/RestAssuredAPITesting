@@ -13,6 +13,8 @@ public class APIConstants {
         public static final String USERS_BY_ID = "/users/{id}";
         public static final String POSTS = "/posts";
         public static final String POSTS_BY_ID = "/posts/{id}";
+        public static final String COMMENTS = "/comments";
+        public static final String COMMENTS_BY_ID = "/comments/{id}";
     }
 
     // ReqRes Endpoints

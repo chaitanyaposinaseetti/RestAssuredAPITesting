@@ -8,4 +8,16 @@
         </classes>
     </test>
 
+    <test name="JSONPlaceholder - Post API Tests">
+        <classes>
+            <class name="com.api.tests.jsonplaceholder.PostAPITest"/>
+        </classes>
+    </test>
+    
+    <test name="JSONPLaceholder - Comment API Tests">
+        <classes>
+            <class name="com.api.tests.jsonplaceholder.CommentAPITest"></class>
+        </classes>
+    </test>
+
 </suite>
