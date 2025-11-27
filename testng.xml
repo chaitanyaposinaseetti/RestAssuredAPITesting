@@ -20,4 +20,10 @@
         </classes>
     </test>
 
+    <test name="Tests -  API Tests">
+        <classes>
+            <class name="com.api.tests.reqres.MyFirstAPITest"> </class>
+        </classes>
+    </test>
+
 </suite>

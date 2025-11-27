@@ -1,0 +1,43 @@
+---
+version: 0.1
+globalTimeout: 90
+testSuiteTimeout: 90
+testSuiteStep: 90
+
+runson: linux
+
+autosplit: true
+retryOnFailure: false
+maxRetries: 1
+
+concurrency: 3
+
+pre:
+  - mvn clean compile
+
+cacheKey: '{{ checksum "pom.xml" }}'
+cacheDirectories:
+  - .m2
+
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: grep -rni 'src/test' -e '@Test' --include=\*.java | sed 's/.*\/\([^\/]*\.java\).*/\1/' | uniq
+
+testRunnerCommand: mvn test -Dtest=$test
+
+post:
+  - ls -lah target/allure-results
+
+mergeArtifacts: true
+
+uploadArtefacts:
+  - name: allure-results
+    path:
+      - target/allure-results/**
+
+report: true
+partialReports:
+  location: target/allure-results
+  type: json
+  frameworkName: testng

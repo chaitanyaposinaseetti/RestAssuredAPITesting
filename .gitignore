@@ -48,3 +48,17 @@ target/
 # OS files
 .DS_Store
 Thumbs.db
+
+# LambdaTest HyperExecute
+hyperexecute.exe
+hyperexecute-cli.log
+hyperexecute-code-*.zip
+.hyperexecute/
+.updatedhyperexecute.yaml
+
+# Allure Results (generated files)
+.allure/
+allure-results/
+
+# JVM Error Logs
+hs_err_pid*.log

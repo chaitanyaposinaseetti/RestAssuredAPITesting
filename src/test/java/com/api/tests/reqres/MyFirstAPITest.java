@@ -1,4 +1,4 @@
-package com.api.tests;
+package com.api.tests.reqres;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
