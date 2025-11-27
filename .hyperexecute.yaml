@@ -1,43 +1,48 @@
 ---
 version: 0.1
-globalTimeout: 90
-testSuiteTimeout: 90
-testSuiteStep: 90
+globalTimeout: 150
+testSuiteTimeout: 150
+testSuiteStep: 150
 
 runson: linux
 
+runtime:
+  language: java
+  version: "17"
+
 autosplit: true
 retryOnFailure: false
-maxRetries: 1
 
 concurrency: 3
 
-pre:
-  - mvn clean compile
+env:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
 
-cacheKey: '{{ checksum "pom.xml" }}'
-cacheDirectories:
-  - .m2
+pre:
+  - mvn clean compile -DskipTests
 
 testDiscovery:
   type: raw
   mode: dynamic
-  command: grep -rni 'src/test' -e '@Test' --include=\*.java | sed 's/.*\/\([^\/]*\.java\).*/\1/' | uniq
+  command: grep -rni 'src/test/java' -e '@Test' --include=\*.java | sed 's/.*\/\([^\/]*\)\.java.*/\1/g' | sort | uniq
 
 testRunnerCommand: mvn test -Dtest=$test
 
 post:
-  - ls -lah target/allure-results
+  - cat target/surefire-reports/*.xml || echo "No test reports found"
 
 mergeArtifacts: true
 
 uploadArtefacts:
+  - name: surefire-reports
+    path:
+      - target/surefire-reports/**
   - name: allure-results
     path:
       - target/allure-results/**
 
 report: true
 partialReports:
-  location: target/allure-results
-  type: json
+  location: target/surefire-reports
+  type: xml
   frameworkName: testng
